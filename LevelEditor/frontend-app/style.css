@@ -1,0 +1,231 @@
+body{
+    font-family: "Press Start 2P", system-ui;
+}
+
+body#index{background-color: rgb(136, 136, 136);}
+body#game{background-color: #00796b;}
+
+#title {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#toolbox {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+#clear-level {
+    margin-top: auto;
+}
+
+button {
+    font-family: "Press Start 2P", system-ui;
+    background-color: #333;
+    border: none;
+    color: white;
+    padding: 16px;
+    border-radius: 12px;
+    text-align: center;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+}
+    button:hover {
+        opacity: 0.8;
+    }
+
+#level-id {
+    font-family: "Press Start 2P", system-ui;
+    padding: 8px 2px;
+    display: inline-block;
+    margin-right: 5px;
+    border: 2px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 12px;
+}
+
+#level-list {
+    font-family: "Press Start 2P", system-ui;
+    padding: 8px 10px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-right: 5px;
+    border: 2px solid #ccc;
+    box-sizing: border-box;
+}
+
+
+#editor {
+    flex: 1;
+    width: 800px;
+    height: 600px;
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f0f0f0;
+}
+
+#editor-buttons {
+    display: flex;
+    background-color: darkgrey;
+    border: 1px solid #333;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.block{
+    width: 25px;
+    height: 50px;
+    background-color: saddlebrown;
+    position: absolute;
+    cursor: move;
+}
+
+    .block:hover{
+        opacity: 0.8;
+    }
+
+.block2 {
+    width: 70px;
+    height: 20px;
+    background-color: saddlebrown;
+    position: absolute;
+    cursor: move;
+}
+
+    .block2:hover {
+        opacity: 0.8;
+    }
+
+.pigs {
+    width: 25px;
+    height: 25px;
+    background-color: darkgreen;
+    border-radius: 50%;
+    position: absolute;
+    cursor: move;
+}
+
+    .pigs:hover {
+        opacity: 0.8;
+    }
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 50px solid #4800ff;
+    position: absolute;
+    cursor: move;
+}
+
+    .triangle:hover {
+        opacity: 0.8;
+    }
+
+#buttons {
+    text-align: center;
+    display: flex;
+    margin-top: 20px;
+}
+
+#buttons-1 {
+    text-align: center;
+    flex: 1.5;
+}
+
+#buttons-2 {
+    text-align: center;
+    flex: 2;
+    
+}
+
+#add-block2 {
+    margin-top: 10px;
+}
+
+#add-pigs{
+    margin-top: 10px;
+}
+
+#add-triangle {
+    margin-top: 10px;
+}
+
+#editing {
+    padding-top:20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+#rename {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+#button-3 {
+    text-align: center;
+}
+
+#game-start {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: #17ec77;
+    border: 2px solid black;
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    display: inline-block;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+    #game-start:hover {
+        opacity: 0.6;
+    }
+
+
+/*GAME*/
+
+
+header, footer {
+    background-color: #00796b;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+    header h1 {
+        margin: 0;
+        font-size: 2em;
+    }
+
+    footer p {
+        margin: 0;
+        font-size: 0.9em;
+    }
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+canvas {
+    display: block;
+    background-color: #cbece8;
+    border: 2px solid #004d40;
+    margin: 20px auto;
+}
+
+#hide{
+    display: none;
+    visibility: hidden;
+}

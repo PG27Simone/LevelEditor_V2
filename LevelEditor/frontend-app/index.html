@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+    <title>Level Editor</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+
+<body id="index">
+    <h1 id="title">Not Angry Birds :)</h1>
+
+    <div id="editor-buttons">
+
+        <div id="toolbox">
+            <button id="add-block">Add V. Block</button>
+            <button id="add-block2">Add H. Block</button>
+            <button id="add-pigs">Add Pig</button>
+            <button id="add-triangle">Add Triangle</button>
+            <button id="clear-level">Clear Editor</button>
+        </div>
+
+        <div id="editor"></div>
+
+    </div>
+
+    <div id="buttons">
+
+        <div id="buttons-1">
+            <input type="text" id="level-id" placeholder="Enter Level ID" />
+            <button id="save-level">Save Level</button>
+        </div>
+
+        <div id="buttons-2">
+            <select id="level-list">
+                <option value="">Select a level</option>
+            </select>
+            <button id="load-level">Load Level</button>
+            <button id="delete-level">Delete Level</button>
+            <button id="rename-level">Rename Level</button>
+        </div>
+    </div>
+
+    <div id="button-3">
+        <button id="game-start">Game Start!</button>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css" />
+
+    <script src="editor.js"></script>
+
+</body>

@@ -1,0 +1,34 @@
+[
+  {
+    "id": "block-0",
+    "x": 830,
+    "y": 543,
+    "width": 25,
+    "height": 50,
+    "type": "block"
+  },
+  {
+    "id": "block-1",
+    "x": 939,
+    "y": 545,
+    "width": 25,
+    "height": 50,
+    "type": "block"
+  },
+  {
+    "id": "block-2",
+    "x": 883,
+    "y": 560,
+    "width": 25,
+    "height": 25,
+    "type": "pigs"
+  },
+  {
+    "id": "block-3",
+    "x": 993,
+    "y": 567,
+    "width": 25,
+    "height": 25,
+    "type": "pigs"
+  }
+]
