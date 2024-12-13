@@ -63,7 +63,7 @@ function loadLevels() {
 
 
             $.ajax({
-                url: serverName + `level/` + encodeURIComponent(levelId),
+                url: "http:localhost:3000/level/" + encodeURIComponent(levelId),
                 method: "GET",
                 contentType: "application/json",
                 success: function (response) {
@@ -248,7 +248,6 @@ function initLevel(levelIndex) {
     });
 
     createBird();
-
 }
 
 var birdRadius = 0.5;
@@ -260,8 +259,8 @@ function createBird() {
         density: 1.5,
         friction: 0.5,
         restitution: 0.5,
-        gravityScale: 0.0,
-    });
+    })
+    bird.gravityScale = 0.0;;
 }
 
 var isMouseDown = false;
@@ -300,7 +299,7 @@ canvas.addEventListener("mousemove", function (event) {
 canvas.addEventListener("mouseup", function (event) {
     if (isMouseDown) {
         isMouseDown = false;
-        bird.gravityScale = 1.0;
+        // bird.gravityScale = 1.0;
         bird.setLinearVelocity(pl.Vec2(0, 0));
         //make sure it doesnt start to rotate w/ impulse
         bird.setAngularVelocity(0);
@@ -341,6 +340,8 @@ function update() {
         //TODO: put better values here for lose condition
         if (birdPos.x > 50 || birdPos.y < -10 || (bird.getLinearVelocity().length() < 0.1 && !isMouseDown)) {
             if (birdsRemaining > 0) {
+                // destroy previous bird before creating another
+                world.destroyBody(bird);
                 createBird();
                 birdLaunched = false;
             } else if (!isLevelComplete) {

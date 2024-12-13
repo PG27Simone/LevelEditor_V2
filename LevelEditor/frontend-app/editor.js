@@ -1,6 +1,6 @@
 $(function () {
     let blockCounter = 0;
-    const serverName = `http:localhost:3000`;
+    const serverName = "http:localhost:3000";
 
     $("#add-block").click(function () {
         createBlock("block", 10, 10);
@@ -55,7 +55,7 @@ $(function () {
 
     function loadLevelList() {
         $.ajax({
-            url: serverName + `levels`,
+            url:  "http:localhost:3000/levels",
             method: "GET",
             success: function (levelIds) {
                 const $levelList = $("#level-list")
