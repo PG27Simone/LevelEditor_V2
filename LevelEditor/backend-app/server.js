@@ -12,7 +12,9 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(cors());
 
-let levels = {};
+let levels = {
+
+};
 
 //get a level for load
 app.get("/level/:id", (req, res) => {
@@ -24,7 +26,7 @@ app.get("/level/:id", (req, res) => {
             console.error("Error reading level data:", err);
             return res.status(404).send("Level not found");
         };
-        
+
         res.send(data);
     });
 });
@@ -59,14 +61,14 @@ app.put("/level/:id", (req, res) => {
     fs.rename(filePath, newPath,
         (error) => {
             if (error) {
-                // Show the error 
+                // Show the error
                 console.log("Error renaming the file");
             }
             else {
                 console.log("File Renamed");
                 res.json(newName);
             }
-        });  
+        });
 });
 
 //delete level

@@ -30,7 +30,7 @@ var timeStep = 1 / 60;
 var velocityIterations = 8;
 var positionIterations = 3;
 
-var scale = 30; ///change hits into something related to width and height
+var scale = 30; ///change this into something related to width and height
 
 var levels = [];
 var pigs = [];
@@ -63,7 +63,7 @@ function loadLevels() {
 
 
             $.ajax({
-                url: `http://localhost:3000/level/` + encodeURIComponent(levelId),
+                url: serverName + `level/` + encodeURIComponent(levelId),
                 method: "GET",
                 contentType: "application/json",
                 success: function (response) {
@@ -87,6 +87,17 @@ function loadLevels() {
                         if(newType == "pigs"){
                             pigu.push({x: newX/20 - 10, y: newY/50 - 5})
                         }
+                        // if(newType == "block2")
+                        // {
+                        //     boxy2.push({x: newX/20 - 10, y: newY/50 - 5})
+                        // }
+                        // if(newType == "block")
+                        // {
+                        //     boxy.push({x: newX/20 - 10, y: newY/50 - 5})
+                        // }
+                        // if(newType == "pigs"){
+                        //     pigu.push({x: newX/20 - 10, y: newY/50 - 5})
+                        // }
 
                     }
 
@@ -249,6 +260,7 @@ function createBird() {
         density: 1.5,
         friction: 0.5,
         restitution: 0.5,
+        gravityScale: 0.0,
     });
 }
 
@@ -288,6 +300,7 @@ canvas.addEventListener("mousemove", function (event) {
 canvas.addEventListener("mouseup", function (event) {
     if (isMouseDown) {
         isMouseDown = false;
+        bird.gravityScale = 1.0;
         bird.setLinearVelocity(pl.Vec2(0, 0));
         //make sure it doesnt start to rotate w/ impulse
         bird.setAngularVelocity(0);

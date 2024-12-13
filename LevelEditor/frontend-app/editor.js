@@ -1,5 +1,6 @@
 $(function () {
     let blockCounter = 0;
+    const serverName = `http:localhost:3000`;
 
     $("#add-block").click(function () {
         createBlock("block", 10, 10);
@@ -54,7 +55,7 @@ $(function () {
 
     function loadLevelList() {
         $.ajax({
-            url: "http://localhost:3000/levels",
+            url: serverName + `levels`,
             method: "GET",
             success: function (levelIds) {
                 const $levelList = $("#level-list")
@@ -93,7 +94,7 @@ $(function () {
         }
 
         $.ajax({
-            url: `http://localhost:3000/level/` + encodeURIComponent(levelId),
+            url: serverName + `level/` + encodeURIComponent(levelId),
             method: "PUT",
             contentType: "application/json",
             data: JSON.stringify({ name: `${newName}` }),
@@ -118,7 +119,7 @@ $(function () {
         }
         if (confirm(`Delete level ${levelId}?`)) {
             $.ajax({
-                url: `http://localhost:3000/level/` + encodeURIComponent(levelId),
+                url: serverName + `level/` + encodeURIComponent(levelId),
                 method: "DELETE",
                 contentType: "application/json",
                 success: function (response) {
@@ -226,7 +227,7 @@ $(function () {
         };
 
         $.ajax({
-            url: `http://localhost:3000/level/` + encodeURIComponent(levelId),
+            url: serverName + `level/` + encodeURIComponent(levelId),
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify(levelData),
@@ -251,7 +252,7 @@ $(function () {
         console.log(levelId)
 
         $.ajax({
-            url: `http://localhost:3000/level/` + encodeURIComponent(levelId),
+            url: serverName + `level/` + encodeURIComponent(levelId),
             method: "GET",
             contentType: "application/json",
             success: function (response) {
