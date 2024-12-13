@@ -148,7 +148,7 @@ $(function () {
             alert("Please make at least one level!");
             return;
         }
-    });  
+    });
 
 
     //saving
@@ -157,6 +157,12 @@ $(function () {
 
         if (!levelId) {
             alert("Please enter a level ID!");
+            return;
+        }
+
+        if($(".pigs").length == 0)
+        {
+            alert("Please add at least one pig!");
             return;
         }
 
@@ -237,7 +243,7 @@ $(function () {
     //loading
     $("#load-level").click(function () {
         const levelId = $("#level-list").val();
-        
+
         if (!levelId) {
             alert("Please choose a level ID!");
             return;
@@ -249,9 +255,9 @@ $(function () {
             method: "GET",
             contentType: "application/json",
             success: function (response) {
-                
+
                 const parsedData = JSON.parse(response);
-               
+
                 if (confirm(`Load level ${levelId}?`)) {
                     clearLevel()
 
@@ -272,5 +278,5 @@ $(function () {
     });
 
     loadLevelList();
-  
+
 });

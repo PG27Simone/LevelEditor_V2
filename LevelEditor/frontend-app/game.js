@@ -9,7 +9,7 @@ myFont.load().then(function(font){
     // with canvas, if this is ommited won't work
     document.fonts.add(font);
     console.log('Font loaded');
-  
+
 });
 
 function resizeCanvas() {
@@ -60,7 +60,7 @@ function loadLevels() {
         const levelId = $("#level-list option").eq(i).text();
         console.log(levelId)
 
-    
+
 
             $.ajax({
                 url: `http://localhost:3000/level/` + encodeURIComponent(levelId),
@@ -87,7 +87,7 @@ function loadLevels() {
                         if(newType == "pigs"){
                             pigu.push({x: newX/20 - 10, y: newY/50 - 5})
                         }
-                        
+
                     }
 
                     levels.push({ boxes: boxy, pigs: pigu, boxes2: boxy2 });
@@ -105,7 +105,7 @@ function loadLevels() {
     }, 1000);
 
     /*
-    
+
     levels = [
         //level 1
         {
@@ -132,7 +132,7 @@ function loadLevels() {
                 { x: 23, y: 3},
             ]
         }
-        
+
     ];
     */
 }
@@ -178,7 +178,7 @@ function createPig(x, y) {
         //adding a tag to use later to identify it. custom property
         userData: "pig"
     });
-    //another custom property 
+    //another custom property
     pig.isPig = true;
     return pig;
 }
@@ -511,8 +511,3 @@ setTimeout(() => {
     initLevel(currentLevel);
 }, 2000);
 loop();
-
-
-
-
-
