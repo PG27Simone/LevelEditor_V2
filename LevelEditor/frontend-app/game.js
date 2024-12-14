@@ -71,8 +71,6 @@ function loadLevels() {
         const levelId = $("#level-list option").eq(i).text();
         console.log(levelId)
 
-
-
             $.ajax({
                 url: "http:localhost:3000/level/" + encodeURIComponent(levelId),
                 method: "GET",
@@ -120,37 +118,6 @@ function loadLevels() {
         }
     }, 1000);
 
-    /*
-
-    levels = [
-        //level 1
-        {
-
-            pigs: [{ x: 2, y: 1 }],
-            boxes: [
-                { x: 15, y: 1},
-                { x: 17, y: 1},
-                { x: 16, y: 3},
-            ]
-        },
-
-        //level 2
-        {
-            pigs: [
-                { x: 22, y: 1 },
-                { x: 24, y: 1 },
-            ],
-            boxes: [
-                { x: 20, y: 1},
-                { x: 22, y: 1},
-                { x: 24, y: 1},
-                { x: 21, y: 3},
-                { x: 23, y: 3},
-            ]
-        }
-
-    ];
-    */
 }
 
 var ground = world.createBody();
@@ -374,11 +341,9 @@ function update() {
         }, 500); //wait for 500 ms before you do this
     }
 
-    //TODO: definitely improve this
     if (birdLaunched) {
         var birdPos = bird.getPosition();
-        //TODO: put better values here for lose condition
-        if (birdPos.x > 50 || birdPos.y < -10 || (bird.getLinearVelocity().length() < 0.1 && !isMouseDown)) {
+        if (birdPos.x > 50 || birdPos.y < -10 || (bird.getLinearVelocity().length() < 0.15 && !isMouseDown)) {
             if (birdsRemaining > 0) {
                 // destroy previous bird before creating another
                 world.destroyBody(bird);
@@ -388,8 +353,7 @@ function update() {
                 setTimeout(function () {
                     alert("Game Over! Try again")
                     resetLevel();
-                }); //wait for 500 ms before you do this
-                // got rid of the wait because this is being called in update and therefore called a shitton of times within that 500ms periodt.
+                }); 
             }
         }
     }

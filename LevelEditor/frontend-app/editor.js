@@ -94,7 +94,7 @@ $(function () {
         }
 
         $.ajax({
-            url: serverName + `level/` + encodeURIComponent(levelId),
+            url: `http://localhost:3000/level/` + encodeURIComponent(levelId),
             method: "PUT",
             contentType: "application/json",
             data: JSON.stringify({ name: `${newName}` }),
@@ -119,7 +119,7 @@ $(function () {
         }
         if (confirm(`Delete level ${levelId}?`)) {
             $.ajax({
-                url: serverName + `level/` + encodeURIComponent(levelId),
+                url: `http://localhost:3000/level/` + encodeURIComponent(levelId),
                 method: "DELETE",
                 contentType: "application/json",
                 success: function (response) {
@@ -148,6 +148,20 @@ $(function () {
         } else {
             alert("Please make at least one level!");
             return;
+        }
+    });
+
+    //RESTART
+    $("#restart-level").click(function () {
+        if (confirm(`Restart Game?`)) {
+        window.location.href = "game.html";
+        }
+    });
+
+    //BACK
+    $("#back").click(function () {
+        if (confirm(`Go Back to Editor?`)) {
+        window.location.href = "index.html";
         }
     });
 
@@ -225,7 +239,7 @@ $(function () {
         };
 
         $.ajax({
-            url: serverName + `level/` + encodeURIComponent(levelId),
+            url: `http://localhost:3000/level/` + encodeURIComponent(levelId),
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify(levelData),
@@ -250,7 +264,7 @@ $(function () {
         console.log(levelId)
 
         $.ajax({
-            url: serverName + `level/` + encodeURIComponent(levelId),
+            url: `http://localhost:3000/level/` + encodeURIComponent(levelId),
             method: "GET",
             contentType: "application/json",
             success: function (response) {

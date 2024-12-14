@@ -144,6 +144,12 @@ button {
 
 }
 
+#buttons-3 {
+    text-align: center;
+    padding-top:10px;
+    padding-bottom:20px;
+}
+
 #add-block2 {
     margin-top: 10px;
 }
