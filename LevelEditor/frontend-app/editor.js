@@ -206,8 +206,6 @@ $(function () {
                 type: "pigs"
             });
         });
-
-
         $(".triangle").each(function () {
             const $this = $(this);
             const position = $this.position();

@@ -31,15 +31,26 @@ var velocityIterations = 8;
 var positionIterations = 3;
 
 var scale = 30; ///change this into something related to width and height
+let sizeScaleFactor = 2;
+
 
 var levels = [];
 var pigs = [];
 var boxes = [];
 var boxes2 = [];
+var triangles = [];
+// please don't change verts, but if you do, they must be kept in CCW order
+let triangleVerts = [
+    pl.Vec2(0 * sizeScaleFactor, 0 * sizeScaleFactor),
+    pl.Vec2(1 * sizeScaleFactor, 0 * sizeScaleFactor),
+    pl.Vec2(0.5 * sizeScaleFactor, 1 * sizeScaleFactor),
+];
+let trianglePoly = new pl.Polygon(triangleVerts);
 
 var pigu = [];
 var boxy = [];
 var boxy2 = [];
+var trianglert = [];
 
 
 var isLevelComplete = false;
@@ -87,25 +98,19 @@ function loadLevels() {
                         if(newType == "pigs"){
                             pigu.push({x: newX/20 - 10, y: newY/50 - 5})
                         }
-                        // if(newType == "block2")
-                        // {
-                        //     boxy2.push({x: newX/20 - 10, y: newY/50 - 5})
-                        // }
-                        // if(newType == "block")
-                        // {
-                        //     boxy.push({x: newX/20 - 10, y: newY/50 - 5})
-                        // }
-                        // if(newType == "pigs"){
-                        //     pigu.push({x: newX/20 - 10, y: newY/50 - 5})
-                        // }
+                        if(newType == "triangle")
+                        {
+                            trianglert.push({x: newX/20 - 10, y: newY/50 - 5})
+                        }
 
                     }
 
-                    levels.push({ boxes: boxy, pigs: pigu, boxes2: boxy2 });
+                    levels.push({ boxes: boxy, pigs: pigu, boxes2: boxy2, triangles: trianglert });
                     console.log(levels[0]);
                     pigu = [];
                     boxy = [];
                     boxy2 = [];
+                    trianglert = [];
                 },
                 error: function (xhr, status, error) {
                     alert("Error loading level" + xhr.responseText);
@@ -168,7 +173,7 @@ function createBox(x, y, dynamic) {
     }
 
     var body = world.createBody(bodyDef);
-    body.createFixture(pl.Box(1 / 4, 2 / 4), {
+    body.createFixture(pl.Box(1 * sizeScaleFactor / 4, 2 * sizeScaleFactor / 4), {
         density: 1.0,
         friction: 0.5,
         //bounciness - higher the bouncier
@@ -179,7 +184,7 @@ function createBox(x, y, dynamic) {
 
 
 function createPig(x, y) {
-    var pigRadius = 0.3;
+    var pigRadius = 0.3 * sizeScaleFactor;
     var pig = world.createDynamicBody(pl.Vec2(x, y));
 
     pig.createFixture(pl.Circle(pigRadius), {
@@ -205,13 +210,35 @@ function createBox2(x, y, dynamic) {
     }
 
     var body2 = world.createBody(bodyDef);
-    body2.createFixture(pl.Box(1, 1 / 4), {
+    body2.createFixture(pl.Box(1 * sizeScaleFactor, 1 * sizeScaleFactor / 4), {
         density: 1.0,
         friction: 0.5,
         //bounciness - higher the bouncier
         restitution: 0.1
     });
     return body2;
+}
+
+function createTriangle(x, y, dynamic) {
+    var bodyDef = {
+        position: pl.Vec2(x, y),
+        shape: trianglePoly,
+    };
+
+    if (dynamic) {
+        //adding key to object, changing body type
+        bodyDef.type = "dynamic";
+    }
+
+    var body = world.createBody(bodyDef);
+
+    body.createFixture(pl.Polygon(triangleVerts), {
+        density: 1.0,
+        friction: 0.5,
+        //bounciness - higher the bouncier
+        restitution: 0.1
+    });
+    return body;
 }
 
 //adapt accordingly to the backend code
@@ -228,6 +255,8 @@ function initLevel(levelIndex) {
     pigs = [];
     boxes = [];
     boxes2 = [];
+    triangles = [];
+
     isLevelComplete = false;
     birdLaunched = false;
     birdsRemaining = 3;
@@ -247,20 +276,28 @@ function initLevel(levelIndex) {
         pigs.push(createPig(pigData.x, pigData.y));
     });
 
+    level.triangles.forEach(function (triData) {
+        triangles.push(createTriangle(triData.x, triData.y, true));
+    });
+
     createBird();
 }
 
-var birdRadius = 0.5;
+var birdRadius = 0.25 * sizeScaleFactor;
 var birdStartPos = pl.Vec2(5, 5);
 
 function createBird() {
-    bird = world.createDynamicBody(birdStartPos);
+    bird = world.createBody({
+            position: birdStartPos,
+            type: 'dynamic',
+            gravityScale: 0,
+        });
+
     bird.createFixture(pl.Circle(birdRadius), {
         density: 1.5,
         friction: 0.5,
         restitution: 0.5,
     })
-    bird.gravityScale = 0.0;;
 }
 
 var isMouseDown = false;
@@ -300,6 +337,9 @@ canvas.addEventListener("mouseup", function (event) {
     if (isMouseDown) {
         isMouseDown = false;
         // bird.gravityScale = 1.0;
+        bird.setGravityScale(1.0);
+        console.log(bird.gravityScale);
+
         bird.setLinearVelocity(pl.Vec2(0, 0));
         //make sure it doesnt start to rotate w/ impulse
         bird.setAngularVelocity(0);
@@ -348,7 +388,8 @@ function update() {
                 setTimeout(function () {
                     alert("Game Over! Try again")
                     resetLevel();
-                }, 500); //wait for 500 ms before you do this
+                }); //wait for 500 ms before you do this
+                // got rid of the wait because this is being called in update and therefore called a shitton of times within that 500ms periodt.
             }
         }
     }
@@ -452,6 +493,31 @@ function draw() {
         ctx.fill();
 
         ctx.restore();
+    });
+
+    triangles.forEach(function (triangle) {
+        var position = triangle.getPosition();
+        var angle = triangle.getAngle();
+        var shape = triangle.getFixtureList().getShape();
+        //getting vertices of box and draw a box with them - good if you want to add smth other than boxes so you can get vertices and draw it
+        var vertices = shape.m_vertices;
+
+        ctx.save();
+
+        ctx.translate(position.x * scale, canvas.height - position.y * scale);
+        ctx.rotate(-angle);
+        ctx.beginPath();
+        //get first vertex
+        ctx.moveTo(vertices[0].x * scale, -vertices[0].y * scale);
+        //go to rest of vertices and draw
+        for (var i = 1; i < vertices.length; i++) {
+            ctx.lineTo(vertices[i].x * scale, -vertices[i].y * scale);
+        }
+        ctx.closePath();
+        ctx.fillStyle = "#794448";
+        ctx.fill();
+
+        ctx.restore();
 
     });
 
@@ -459,7 +525,7 @@ function draw() {
     //go through each pig to draw them
     pigs.forEach(function (pig) {
         var pigPos = pig.getPosition();
-        var pigRadius = 0.3;
+        var pigRadius = 0.3 * sizeScaleFactor;
         ctx.beginPath();
         ctx.arc(pigPos.x * scale, canvas.height - pigPos.y * scale, pigRadius * scale, 0, 2 * Math.PI);
         ctx.fillStyle = "#8bc34a";
