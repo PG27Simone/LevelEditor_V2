@@ -534,7 +534,7 @@ function nextLevel() {
     if (currentLevel < levels.length) {
         initLevel(currentLevel)
     } else {
-        alert("Congrats, you won!");
+        alert("Congrats, you won! Game will start again.");
         currentLevel = 0;
         score = 0;
         initLevel(currentLevel);

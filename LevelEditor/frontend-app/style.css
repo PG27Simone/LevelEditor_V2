@@ -118,7 +118,7 @@ button {
     height: 0;
     border-left: 25px solid transparent;
     border-right: 25px solid transparent;
-    border-bottom: 50px solid #4800ff;
+    border-bottom: 50px solid saddlebrown;
     position: absolute;
     cursor: move;
 }
