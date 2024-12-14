@@ -5,12 +5,10 @@ JavaScript Frameworks
 A2
 2024/12/13
 
-Level Editor Git:
-
-https://github.com/PG27Simone/LevelEditor_V2
-
 Start server to use level editor
+
 Editor HTML can be found in frontend-app>index.html
+
 In editor:
 Use the buttons to spawn objects, click and drag to place them, and right click to delete objects. Yoy can save/load/delete and rename levels by filling in provided fields.
 
